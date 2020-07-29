@@ -25,9 +25,8 @@ public class EncuestaController {
   private EncuestaRepository encuestaRepository;
 
   @GetMapping("/encuestas")
-  public ResponseEntity<Iterable<Encuesta>> getAllEncuestas() {
-    Iterable<Encuesta> encuestas = encuestaRepository.findAll();
-    return new ResponseEntity<>(encuestas, HttpStatus.OK);
+  public Iterable<Encuesta> getAllEncuestas() {
+    return encuestaRepository.findAll();
   }
 
 
@@ -51,14 +50,13 @@ public class EncuestaController {
   @PutMapping("/encuestas/{encuestaId}")
   public ResponseEntity<Encuesta> updateEncuesta(@RequestBody Encuesta encuesta,
       @PathVariable Long encuestaId) {
-
-    Encuesta encuestaActualizada = encuestaRepository.save(encuesta);
+    encuestaRepository.save(encuesta);
     return new ResponseEntity<Encuesta>(HttpStatus.OK);
 
   }
 
   @DeleteMapping("/encuestas/{encuestaId}")
-  public ResponseEntity deleteEncuesta(@PathVariable Long encuestaId) {
+  public ResponseEntity<?> deleteEncuesta(@PathVariable Long encuestaId) {
     encuestaRepository.deleteById(encuestaId);
     return new ResponseEntity<>(HttpStatus.OK);
   }
